@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar"/>
+
+    <style name="RobotoRegularBold">
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="RobotoLightNormal">
+        <item name="fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="RobotoRegularBold.Small" parent="RobotoRegularBold">
+        <item name="android:textSize">12sp</item>
+        <item name="lineHeight">14sp</item>
+    </style>
+
+    <style name="RobotoRegularBold.Medium" parent="RobotoRegularBold">
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">20sp</item>
+    </style>
+
+    <style name="RobotoLightNormal.Medium" parent="RobotoLightNormal">
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">20sp</item>
+    </style>
+
+    <style name="RobotoRegularBold.Large" parent="RobotoRegularBold">
+        <item name="android:textSize">40sp</item>
+        <item name="lineHeight">40sp</item>
+    </style>
+</resources>
