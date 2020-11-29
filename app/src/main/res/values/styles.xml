@@ -12,6 +12,11 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="RobotoRegularBold.ExtraSmall" parent="RobotoRegularBold">
+        <item name="android:textSize">8sp</item>
+        <item name="lineHeight">12sp</item>
+    </style>
+
     <style name="RobotoRegularBold.Small" parent="RobotoRegularBold">
         <item name="android:textSize">12sp</item>
         <item name="lineHeight">14sp</item>
@@ -20,6 +25,11 @@
     <style name="RobotoRegularBold.Medium" parent="RobotoRegularBold">
         <item name="android:textSize">14sp</item>
         <item name="lineHeight">20sp</item>
+    </style>
+
+    <style name="RobotoLightNormal.ExtraSmall" parent="RobotoLightNormal">
+        <item name="android:textSize">8sp</item>
+        <item name="lineHeight">12sp</item>
     </style>
 
     <style name="RobotoLightNormal.Medium" parent="RobotoLightNormal">
