@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ic_background">
+
+    <ImageView
+        android:id="@+id/moviePicture"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="2dp"
+        android:layout_marginTop="2dp"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toTopOf="@id/movieName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:src="@drawable/poster_with_mask" />
+
+    <TextView
+        android:id="@+id/movieName"
+        style="@style/RobotoRegularBold.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/gallery"
+        app:layout_constraintBottom_toTopOf="@id/length"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/moviePicture"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Avengers: End Game" />
+
+    <TextView
+        android:id="@+id/movieGenres"
+        style="@style/RobotoLightNormal.ExtraSmall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/movie_genres"
+        android:textColor="@color/radicalRed"
+        app:layout_constraintBottom_toTopOf="@id/reviewsNumber"
+        app:layout_constraintEnd_toEndOf="@id/moviePicture"
+        app:layout_constraintStart_toStartOf="@id/moviePicture" />
+
+    <TextView
+        android:id="@+id/reviewsNumber"
+        style="@style/RobotoRegularBold.ExtraSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="12dp"
+        android:layout_marginStart="6dp"
+        android:text="@string/reviews_number"
+        android:textColor="@color/gray"
+        app:layout_constraintBottom_toBottomOf="@id/ratingBar"
+        app:layout_constraintStart_toEndOf="@id/ratingBar"
+        app:layout_constraintTop_toTopOf="@id/ratingBar" />
+
+    <TextView
+        android:id="@+id/length"
+        style="@style/RobotoRegularBold.ExtraSmall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="8dp"
+        android:textAllCaps="true"
+        android:textColor="@color/scarpaFlow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movieName"
+        tools:text="137 min" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_like"
+        app:layout_constraintEnd_toEndOf="@id/moviePicture"
+        app:layout_constraintTop_toTopOf="@id/moviePicture" />
+
+    <TextView
+        android:id="@+id/minimalAge"
+        style="@style/RobotoRegularBold.Small"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="52dp"
+        android:alpha="0.9"
+        android:background="@drawable/bordered_imageview"
+        android:paddingVertical="4dp"
+        android:text="@string/minimal_age"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@id/moviePicture"
+        app:layout_constraintTop_toTopOf="@id/moviePicture" />
+
+    <com.tatiana.rodionova.androidacademyproject.custom.RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"
+        android:numStars="5"
+        android:progressDrawable="@drawable/rating_bar_small_selector"
+        app:itemSpacing="1dp"
+        app:layout_constraintBottom_toBottomOf="@id/moviePicture"
+        app:layout_constraintStart_toStartOf="@id/moviePicture" />
+</androidx.constraintlayout.widget.ConstraintLayout>
