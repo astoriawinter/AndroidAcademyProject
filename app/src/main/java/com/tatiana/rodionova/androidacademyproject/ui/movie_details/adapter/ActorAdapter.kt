@@ -1,4 +1,4 @@
-package com.tatiana.rodionova.androidacademyproject.adapter
+package com.tatiana.rodionova.androidacademyproject.ui.movie_details.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tatiana.rodionova.androidacademyproject.R
 import com.tatiana.rodionova.androidacademyproject.model.Actor
+import com.tatiana.rodionova.androidacademyproject.utils.setGradient
 import kotlin.properties.Delegates
 
 class ActorAdapter : RecyclerView.Adapter<ActorAdapter.ActorViewHolder>() {
@@ -18,10 +19,10 @@ class ActorAdapter : RecyclerView.Adapter<ActorAdapter.ActorViewHolder>() {
     private val diffCallback = object : DiffUtil.ItemCallback<Actor>() {
 
         override fun areContentsTheSame(oldItem: Actor, newItem: Actor): Boolean =
-            oldItem.resource == newItem.resource
+                oldItem.resource == newItem.resource
 
         override fun areItemsTheSame(oldItem: Actor, newItem: Actor): Boolean =
-            oldItem.name == newItem.name
+                oldItem.name == newItem.name
     }
     private val differ = AsyncListDiffer(this, diffCallback)
 
@@ -30,9 +31,9 @@ class ActorAdapter : RecyclerView.Adapter<ActorAdapter.ActorViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorViewHolder =
-        ActorViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_actor, parent, false)
-        )
+            ActorViewHolder(
+                    LayoutInflater.from(parent.context).inflate(R.layout.item_actor, parent, false)
+            )
 
     override fun getItemCount(): Int = differ.currentList.size
 
@@ -49,7 +50,10 @@ class ActorAdapter : RecyclerView.Adapter<ActorAdapter.ActorViewHolder>() {
                     .load(item.resource)
                     .into(picture)
 
-            name.text = item.name
+            with(name) {
+                text = item.name
+                setGradient()
+            }
         }
     }
 }
