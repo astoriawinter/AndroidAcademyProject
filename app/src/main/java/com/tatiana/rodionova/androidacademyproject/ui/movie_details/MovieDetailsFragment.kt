@@ -69,6 +69,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movies_details) {
         findViewById<TextView>(R.id.reviewsNumber).text = context.getString(R.string.reviews_number, movie.reviewNumber)
         findViewById<TextView>(R.id.movieGenres).text = movie.genres.joinToString(separator = ", ")
         findViewById<RatingBar>(R.id.ratingBar).rating = movie.rating
+        findViewById<TextView>(R.id.minimalAge).text = movie.minimalAge
     }
 
     companion object {
