@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/filmImage"
+            android:id="@+id/movieImage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:contentDescription="@null"
@@ -26,10 +26,10 @@
             android:contentDescription="@null"
             android:scaleType="fitXY"
             android:src="@drawable/ic_gradient"
-            app:layout_constraintBottom_toBottomOf="@id/filmImage"
-            app:layout_constraintEnd_toEndOf="@id/filmImage"
-            app:layout_constraintStart_toStartOf="@id/filmImage"
-            app:layout_constraintTop_toTopOf="@id/filmImage" />
+            app:layout_constraintBottom_toBottomOf="@id/movieImage"
+            app:layout_constraintEnd_toEndOf="@id/movieImage"
+            app:layout_constraintStart_toStartOf="@id/movieImage"
+            app:layout_constraintTop_toTopOf="@id/movieImage" />
 
         <ImageView
             android:id="@+id/backIcon"
@@ -58,24 +58,24 @@
         <TextView
             android:id="@+id/minimalAge"
             style="@style/RobotoRegularBold.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginBottom="52dp"
             android:alpha="0.9"
             android:background="@drawable/bordered_imageview"
             android:paddingVertical="4dp"
             android:text="@string/minimal_age"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/filmImage"
+            app:layout_constraintBottom_toBottomOf="@id/movieImage"
             app:layout_constraintStart_toStartOf="@id/guidelineStart" />
 
         <TextView
-            android:id="@+id/filmTitle"
+            android:id="@+id/movieTitle"
             style="@style/RobotoRegularBold.Large"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="@string/film_name"
+            android:text="@string/movie_name"
             android:textAlignment="viewStart"
             android:textColor="@color/gallery"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
@@ -84,29 +84,16 @@
             app:layout_constraintTop_toBottomOf="@id/minimalAge" />
 
         <TextView
-            android:id="@+id/filmGenres"
+            android:id="@+id/movieGenres"
             style="@style/RobotoLightNormal.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/film_genres"
+            android:text="@string/movie_genres"
             android:textColor="@color/radicalRed"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/filmTitle" />
-
-        <com.tatiana.rodionova.androidacademyproject.custom.RatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="12dp"
-            android:layout_marginTop="8dp"
-            android:numStars="5"
-            android:progressDrawable="@drawable/rating_bar_selector"
-            app:itemSpacing="2dp"
-            app:layout_constraintEnd_toStartOf="@id/reviewsNumber"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/filmGenres" />
+            app:layout_constraintTop_toBottomOf="@id/movieTitle" />
 
         <TextView
             android:id="@+id/reviewsNumber"
@@ -114,7 +101,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8.89dp"
-            android:text="@string/reviews_number"
             android:textColor="@color/gray"
             app:layout_constraintBottom_toBottomOf="@id/ratingBar"
             app:layout_constraintStart_toEndOf="@id/ratingBar"
@@ -139,36 +125,26 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:alpha="0.75"
-            android:textColor="@color/white"
             android:gravity="center_vertical"
             android:paddingVertical="15dp"
             android:text="@string/description"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/storyLine" />
 
         <TextView
             android:id="@+id/cast"
-            android:textColor="@color/gallery"
             style="@style/RobotoRegularBold.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:minHeight="24dp"
             android:text="@string/cast"
+            android:textColor="@color/gallery"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/storyLineLabel" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/actorsRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="7dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
-            app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/cast" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineStart"
@@ -183,5 +159,28 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_end="16dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/actorsRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/cast" />
+
+        <com.tatiana.rodionova.androidacademyproject.custom.RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="12dp"
+            android:layout_marginTop="8dp"
+            android:numStars="5"
+            android:progressDrawable="@drawable/rating_bar_big_selector"
+            app:itemSpacing="2dp"
+            app:layout_constraintEnd_toStartOf="@id/reviewsNumber"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/movieGenres" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
