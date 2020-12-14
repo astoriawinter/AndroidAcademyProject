@@ -12,11 +12,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         supportFragmentManager.run {
-            fragments.lastOrNull()?.run {
-                beginTransaction().show(this).commitNow()
-            } ?: beginTransaction()
-                .replace(R.id.container, MoviesListFragment.newInstance())
-                .commit()
+            if (fragments.isEmpty()) {
+                beginTransaction()
+                    .replace(R.id.container, MoviesListFragment.newInstance())
+                    .commit()
+            }
         }
     }
 }

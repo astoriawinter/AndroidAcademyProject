@@ -7,7 +7,10 @@
     <string name="reviews_number">%d Reviews</string>
     <string name="storyline">Storyline</string>
     <string name="length">%d min</string>
-    <string name="description">After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos\' actions and restore balance to the universe.</string>
+    <string name="avengers_description">After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos\' actions and restore balance to the universe.</string>
+    <string name="tenet_description">Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.</string>
+    <string name="black_widow_description">A film about Natasha Romanoff in her quests between the films Civil War and Infinity War.</string>
+    <string name="ww84_description">Fast forward to the 1980s as Wonder Woman\'s next big screen adventure finds her facing two all-new foes: Max Lord and The Cheetah.</string>
     <string name="cast">Cast</string>
     <string name="click_go_to_movies_screen">click go to Movies screen</string>
     <string name="movies_list">Movies list</string>

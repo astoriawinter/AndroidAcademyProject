@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/steelGray">
@@ -64,10 +65,11 @@
             android:alpha="0.9"
             android:background="@drawable/bordered_imageview"
             android:paddingVertical="4dp"
-            android:text="@string/minimal_age"
+            android:textAlignment="center"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/movieImage"
-            app:layout_constraintStart_toStartOf="@id/guidelineStart" />
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            tools:text="@string/minimal_age" />
 
         <TextView
             android:id="@+id/movieTitle"
@@ -75,13 +77,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="@string/movie_name"
             android:textAlignment="viewStart"
             android:textColor="@color/gallery"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/minimalAge" />
+            app:layout_constraintTop_toBottomOf="@id/minimalAge"
+            tools:text="@string/movie_name" />
 
         <TextView
             android:id="@+id/movieGenres"
@@ -89,11 +91,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/movie_genres"
             android:textColor="@color/radicalRed"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/movieTitle" />
+            app:layout_constraintTop_toBottomOf="@id/movieTitle"
+            tools:text="@string/movie_genres" />
 
         <TextView
             android:id="@+id/reviewsNumber"
@@ -127,11 +129,11 @@
             android:alpha="0.75"
             android:gravity="center_vertical"
             android:paddingVertical="15dp"
-            android:text="@string/description"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/storyLine" />
+            app:layout_constraintTop_toBottomOf="@id/storyLine"
+            tools:text="@string/avengers_description" />
 
         <TextView
             android:id="@+id/cast"
