@@ -15,11 +15,12 @@ class ItemDecorator(private val resource: Int, private val spanCount: Int) : Rec
         val margin = parent.context.resources.getDimension(resource).toInt()
         val position = parent.getChildAdapterPosition(view)
         val column = position % spanCount
+        val isFirstRow = position < spanCount
 
         outRect.left = column * margin / spanCount
         outRect.right = margin - (column + 1) * margin / spanCount
 
-        if (position >= spanCount) {
+        if (!isFirstRow) {
             outRect.top = margin
         }
     }
