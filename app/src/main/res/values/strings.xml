@@ -2,7 +2,7 @@
     <string name="app_name">Android Academy Project</string>
     <string name="movie_genres">Action, Adventure, Fantasy</string>
     <string name="back_button">Back</string>
-    <string name="minimal_age">13+</string>
+    <string name="minimal_age">%d+</string>
     <string name="movie_name">Avengers:\nEnd Game</string>
     <string name="reviews_number">%d Reviews</string>
     <string name="storyline">Storyline</string>
@@ -14,4 +14,5 @@
     <string name="cast">Cast</string>
     <string name="click_go_to_movies_screen">click go to Movies screen</string>
     <string name="movies_list">Movies list</string>
+    <string name="error_occurred_on_data_loading">Error occurred on data loading</string>
 </resources>
