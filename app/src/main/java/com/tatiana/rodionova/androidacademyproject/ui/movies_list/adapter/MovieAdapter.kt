@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide
 import com.tatiana.rodionova.androidacademyproject.R
 import com.tatiana.rodionova.androidacademyproject.custom.RatingBar
 import com.tatiana.rodionova.androidacademyproject.model.Movie
+import com.tatiana.rodionova.androidacademyproject.model.Movie.Companion.calculateRating
+import com.tatiana.rodionova.androidacademyproject.model.Movie.Companion.split
 import kotlin.properties.Delegates
 
 class MovieAdapter(private val clickListener: (Movie) -> Unit) :
@@ -20,19 +22,10 @@ class MovieAdapter(private val clickListener: (Movie) -> Unit) :
     private val diffCallback = object : DiffUtil.ItemCallback<Movie>() {
 
         override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean =
-            oldItem.poster == newItem.poster &&
-                    oldItem.minimalAge == newItem.minimalAge &&
-                    oldItem.backgroundPoster == newItem.backgroundPoster &&
-                    oldItem.description == newItem.description &&
-                    oldItem.isFavourite == newItem.isFavourite &&
-                    oldItem.genres == newItem.genres &&
-                    oldItem.rating == newItem.rating &&
-                    oldItem.reviewNumber == newItem.reviewNumber &&
-                    oldItem.length == newItem.length &&
-                    oldItem.actors == newItem.actors
+            oldItem == newItem
 
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean =
-            oldItem.name == newItem.name
+            oldItem.id == newItem.id
     }
     private val differ = AsyncListDiffer(this, diffCallback)
 
@@ -54,6 +47,8 @@ class MovieAdapter(private val clickListener: (Movie) -> Unit) :
 
     class MovieViewHolder(itemView: View, val clickListener: (Movie) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
+        private val context = itemView.context
+
         private val name = itemView.findViewById<TextView>(R.id.movieName)
         private val picture = itemView.findViewById<ImageView>(R.id.moviePicture)
         private val reviewsNumber = itemView.findViewById<TextView>(R.id.reviewsNumber)
@@ -68,16 +63,15 @@ class MovieAdapter(private val clickListener: (Movie) -> Unit) :
 
             Glide.with(itemView.context)
                 .load(item.poster)
+                .thumbnail(0.5f)
                 .into(picture)
 
-            isFavourite.isActivated = item.isFavourite
-            minimalAge.text = item.minimalAge
-            reviewsNumber.text =
-                itemView.context.getString(R.string.reviews_number, item.reviewNumber)
-            genres.text = item.genres.joinToString(separator = ", ")
-            ratingBar.rating = item.rating
-            movieLength.text = itemView.context.getString(R.string.length, item.length)
-            name.text = item.name
+            minimalAge.text = context.getString(R.string.minimal_age, item.minimumAge)
+            reviewsNumber.text = context.getString(R.string.reviews_number, item.numberOfRatings)
+            genres.text = item.genres.split()
+            ratingBar.rating = item.ratings.calculateRating()
+            movieLength.text = context.getString(R.string.length, item.runtime)
+            name.text = item.title
         }
     }
 }
