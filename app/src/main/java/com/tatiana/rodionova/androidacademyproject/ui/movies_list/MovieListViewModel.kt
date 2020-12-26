@@ -10,11 +10,11 @@ import com.tatiana.rodionova.androidacademyproject.model.loadMovies
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-data class MovieState(
-    val isLoading: Boolean = false,
-    val isError: Boolean = false,
-    val moves: List<Movie> = listOf()
-)
+sealed class MovieState {
+    object Loading : MovieState()
+    object Error : MovieState()
+    class Success(val moves: List<Movie>) : MovieState()
+}
 
 class MovieListViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -25,7 +25,7 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     init {
-        state.postValue(MovieState(isLoading = true))
+        state.postValue(MovieState.Loading)
     }
 
     fun getMovies(): LiveData<MovieState> = state
@@ -35,9 +35,9 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
             try {
                 /* repository is not added yet, as I was lazy to add DI (⇀‸↼‶) */
                 val list = withContext(coroutineContext) { loadMovies(getApplication()) }
-                state.postValue(MovieState(moves = list))
+                state.postValue(MovieState.Success(moves = list))
             } catch (e: Exception) {
-                state.postValue(MovieState(isError = true))
+                state.postValue(MovieState.Error)
             }
         }
     }
