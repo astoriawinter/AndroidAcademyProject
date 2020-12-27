@@ -63,7 +63,6 @@ class MovieAdapter(private val clickListener: (Movie) -> Unit) :
 
             Glide.with(itemView.context)
                 .load(item.poster)
-                .thumbnail(0.5f)
                 .into(picture)
 
             minimalAge.text = context.getString(R.string.minimal_age, item.minimumAge)
