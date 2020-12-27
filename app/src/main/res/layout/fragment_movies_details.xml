@@ -33,7 +33,11 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -56,10 +60,10 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_gradient"
                 app:layout_constraintBottom_toBottomOf="@id/movieImage"
                 app:layout_constraintEnd_toEndOf="@id/movieImage"
                 app:layout_constraintStart_toStartOf="@id/movieImage"
+                tools:src="@drawable/ic_gradient"
                 app:layout_constraintTop_toTopOf="@id/movieImage" />
 
             <ImageView
