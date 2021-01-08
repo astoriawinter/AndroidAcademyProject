@@ -19,10 +19,10 @@ class ActorAdapter : RecyclerView.Adapter<ActorAdapter.ActorViewHolder>() {
     private val diffCallback = object : DiffUtil.ItemCallback<Actor>() {
 
         override fun areContentsTheSame(oldItem: Actor, newItem: Actor): Boolean =
-                oldItem.resource == newItem.resource
+            oldItem.picture == newItem.picture
 
         override fun areItemsTheSame(oldItem: Actor, newItem: Actor): Boolean =
-                oldItem.name == newItem.name
+            oldItem.name == newItem.name
     }
     private val differ = AsyncListDiffer(this, diffCallback)
 
@@ -31,9 +31,9 @@ class ActorAdapter : RecyclerView.Adapter<ActorAdapter.ActorViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorViewHolder =
-            ActorViewHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.item_actor, parent, false)
-            )
+        ActorViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_actor, parent, false)
+        )
 
     override fun getItemCount(): Int = differ.currentList.size
 
@@ -47,8 +47,8 @@ class ActorAdapter : RecyclerView.Adapter<ActorAdapter.ActorViewHolder>() {
 
         fun bind(item: Actor) {
             Glide.with(itemView.context)
-                    .load(item.resource)
-                    .into(picture)
+                .load(item.picture)
+                .into(picture)
 
             with(name) {
                 text = item.name

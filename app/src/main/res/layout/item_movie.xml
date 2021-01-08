@@ -2,23 +2,22 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/ic_background"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/ic_background">
+    android:layout_height="wrap_content">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/moviePicture"
+        style="@style/RoundedImageView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="2dp"
         android:layout_marginTop="2dp"
         android:contentDescription="@null"
-        app:layout_constraintBottom_toTopOf="@id/movieName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintVertical_chainStyle="packed"
         tools:src="@drawable/avengers_with_mask" />
 
     <TextView
@@ -26,7 +25,7 @@
         style="@style/RobotoRegularBold.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginHorizontal="8dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/gallery"
         app:layout_constraintBottom_toTopOf="@id/length"
@@ -79,7 +78,7 @@
     <ImageView
         android:id="@+id/isFavourite"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@null"
@@ -97,11 +96,11 @@
         android:alpha="0.9"
         android:background="@drawable/bordered_imageview"
         android:paddingVertical="4dp"
-        android:text="@string/minimal_age"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@id/moviePicture"
-        app:layout_constraintTop_toTopOf="@id/moviePicture" />
+        app:layout_constraintTop_toTopOf="@id/moviePicture"
+        tools:text="13+" />
 
     <com.tatiana.rodionova.androidacademyproject.custom.RatingBar
         android:id="@+id/ratingBar"
