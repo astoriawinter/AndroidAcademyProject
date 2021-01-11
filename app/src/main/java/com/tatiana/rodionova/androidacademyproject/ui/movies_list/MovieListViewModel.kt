@@ -1,43 +1,41 @@
 package com.tatiana.rodionova.androidacademyproject.ui.movies_list
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tatiana.rodionova.androidacademyproject.data.MovieRepository
 import com.tatiana.rodionova.androidacademyproject.model.Movie
-import com.tatiana.rodionova.androidacademyproject.model.loadMovies
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-data class MovieState(
-    val isLoading: Boolean = false,
-    val isError: Boolean = false,
-    val moves: List<Movie> = listOf()
-)
+sealed class MovieListState {
+    object Loading : MovieListState()
+    object Error : MovieListState()
+    class Success(val movie: List<Movie>) : MovieListState()
+}
 
-class MovieListViewModel(application: Application) : AndroidViewModel(application) {
+class MovieListViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
-    private val state: MutableLiveData<MovieState> by lazy {
-        MutableLiveData<MovieState>().also {
+    private val state: MutableLiveData<MovieListState> by lazy {
+        MutableLiveData<MovieListState>().also {
             loadMoviesList()
         }
     }
 
-    init {
-        state.postValue(MovieState(isLoading = true))
-    }
+    val movies: LiveData<MovieListState> = state
 
-    fun getMovies(): LiveData<MovieState> = state
+    init {
+        state.postValue(MovieListState.Loading)
+    }
 
     private fun loadMoviesList() {
         viewModelScope.launch {
             try {
-                /* repository is not added yet, as I was lazy to add DI (⇀‸↼‶) */
-                val list = withContext(coroutineContext) { loadMovies(getApplication()) }
-                state.postValue(MovieState(moves = list))
+                val list = withContext(coroutineContext) { movieRepository.getMovies() }
+                state.postValue(MovieListState.Success(movie = list))
             } catch (e: Exception) {
-                state.postValue(MovieState(isError = true))
+                state.postValue(MovieListState.Error)
             }
         }
     }

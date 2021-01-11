@@ -23,7 +23,7 @@ private class JsonActor(
 
 @Serializable
 private class JsonMovie(
-    val id: Int,
+    val id: Long,
     val title: String,
     @SerialName("poster_path")
     val posterPicture: String,

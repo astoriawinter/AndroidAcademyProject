@@ -4,10 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,10 +20,13 @@ import com.tatiana.rodionova.androidacademyproject.model.Movie
 import com.tatiana.rodionova.androidacademyproject.model.Movie.Companion.calculateRating
 import com.tatiana.rodionova.androidacademyproject.model.Movie.Companion.split
 import com.tatiana.rodionova.androidacademyproject.ui.movie_details.adapter.ActorAdapter
+import com.tatiana.rodionova.androidacademyproject.ui.movies_list.MovieListState
 import com.tatiana.rodionova.androidacademyproject.utils.setGradient
 import com.tatiana.rodionova.androidacademyproject.utils.withArgs
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailsFragment : Fragment(R.layout.fragment_movies_details) {
+    private val model: MovieDetailsViewModel by viewModel()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -30,7 +35,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movies_details) {
             this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    fragmentManager?.run {
+                    parentFragmentManager.run {
                         if (backStackEntryCount > 0) {
                             popBackStackImmediate()
                         }
@@ -44,7 +49,21 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movies_details) {
         super.onViewCreated(view, savedInstanceState)
 
         view.run {
-            arguments?.getParcelable<Movie>(MOVIE_ARG)?.let { movie -> initMovieDetail(movie) }
+            val id = arguments?.getLong(MOVIE_ID_ARG) ?: 0
+            model.getMovieById(id).observe(viewLifecycleOwner, { state ->
+                when (state) {
+                    is MovieDetailsState.Loading -> renderUIState(
+                        view = view,
+                        isLoading = true,
+                        isError = false
+                    )
+                    is MovieDetailsState.Error -> renderUIState(view = view, isLoading = true, isError = true)
+                    is MovieDetailsState.Success -> {
+                        renderUIState(view = view, isLoading = false, isError = false)
+                        state.movie?.let { initMovieDetail(it) }
+                    }
+                }
+            })
 
             findViewById<TextView>(R.id.backTextView).setOnClickListener { requireActivity().onBackPressed() }
 
@@ -55,6 +74,16 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movies_details) {
             )
             gradientViews.forEach(TextView::setGradient)
         }
+    }
+
+    private fun renderUIState(view: View, isLoading: Boolean, isError: Boolean) = with(view) {
+        val root = findViewById<NestedScrollView>(R.id.root)
+        val loading = findViewById<ProgressBar>(R.id.loading)
+        val error = findViewById<TextView>(R.id.error)
+
+        error.isVisible = isError && !isLoading
+        root.isVisible = !isLoading || !isError
+        loading.isVisible = isLoading && !isError
     }
 
     private fun View.initMovieDetail(movie: Movie) {
@@ -95,10 +124,10 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movies_details) {
 
     companion object {
 
-        const val MOVIE_ARG = "movie arg"
+        const val MOVIE_ID_ARG = "movie id arg"
 
-        fun newInstance(movie: Movie) = MovieDetailsFragment().withArgs {
-            putParcelable(MOVIE_ARG, movie)
+        fun newInstance(movieId: Long) = MovieDetailsFragment().withArgs {
+            putLong(MOVIE_ID_ARG, movieId)
         }
     }
 }
