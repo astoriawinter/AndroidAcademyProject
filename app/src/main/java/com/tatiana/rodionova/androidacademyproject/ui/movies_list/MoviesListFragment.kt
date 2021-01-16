@@ -20,6 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
     private val model: MovieListViewModel by viewModel()
+    private val movieAdapter = MovieAdapter(::selectMovie)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -37,6 +38,8 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initAdapter(view)
+
         model.movies.observe(viewLifecycleOwner, { state ->
             when (state) {
                 is MovieListState.Loading -> renderUIState(
@@ -44,10 +47,14 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
                     isLoading = true,
                     isError = false
                 )
-                is MovieListState.Error -> renderUIState(view = view, isLoading = true, isError = true)
+                is MovieListState.Error -> renderUIState(
+                    view = view,
+                    isLoading = true,
+                    isError = true
+                )
                 is MovieListState.Success -> {
                     renderUIState(view = view, isLoading = false, isError = false)
-                    initAdapter(view, state.movie)
+                    movieAdapter.apply { list = state.movie }
                 }
             }
         })
@@ -63,13 +70,13 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
         loading.isVisible = isLoading && !isError
     }
 
-    private fun initAdapter(view: View, movies: List<Movie>) = with(view) {
+    private fun initAdapter(view: View) = with(view) {
         val spanCount = resources.getInteger(R.integer.spanCount)
 
         findViewById<RecyclerView>(R.id.moviesRecycler).run {
             addItemDecoration(ItemDecorator(R.dimen.movie_offset, spanCount))
             layoutManager = GridLayoutManager(context, spanCount, GridLayoutManager.VERTICAL, false)
-            adapter = MovieAdapter(::selectMovie).apply { list = movies }
+            adapter = movieAdapter
         }
     }
 
