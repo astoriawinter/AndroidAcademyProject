@@ -26,7 +26,7 @@ class MovieApi(private val httpClient: HttpClient) {
         }
     }
 
-    suspend fun getMovieById(id: Long): Movie? {
+    suspend fun getMovieById(id: Long): Movie {
         val details = httpClient.getMovieDetailsJson(id)
         val config = httpClient.get<JsonImage>("${BASE_URL}configuration")
 
