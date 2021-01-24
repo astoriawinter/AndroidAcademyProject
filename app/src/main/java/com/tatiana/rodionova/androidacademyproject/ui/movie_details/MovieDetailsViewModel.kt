@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tatiana.rodionova.androidacademyproject.data.repository.MovieRepository
 import com.tatiana.rodionova.androidacademyproject.model.Movie
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -28,8 +29,9 @@ class MovieDetailsViewModel(private val movieRepository: MovieRepository) : View
     fun getMovieById(id: Long): LiveData<MovieDetailsState> {
         viewModelScope.launch {
             try {
-                val movie = withContext(coroutineContext) { movieRepository.loadMovie(id) }
-                state.postValue(MovieDetailsState.Success(movie = movie))
+                withContext(coroutineContext) { movieRepository.loadMovie(id) }.collect { detailedMovie ->
+                    state.postValue(MovieDetailsState.Success(movie = detailedMovie))
+                }
             } catch (e: Exception) {
                 state.postValue(MovieDetailsState.Error)
             }
