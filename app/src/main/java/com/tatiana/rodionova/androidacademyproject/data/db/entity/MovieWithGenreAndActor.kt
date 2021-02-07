@@ -1,18 +1,21 @@
 package com.tatiana.rodionova.androidacademyproject.data.db.entity
 
 import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.Junction
 import androidx.room.Relation
 
-class MovieWithGenreAndActor(
+data class MovieWithGenreAndActor(
     @Embedded
     val movie: MovieDetailedEntity,
     @Relation(
-        parentColumn = "id",
-        entityColumn = "movieId"
+        parentColumn = "movieId",
+        entityColumn = "genreId",
+        associateBy = Junction(MovieWithGenreCrossRef::class)
     )
     val genres: List<GenreEntity>,
     @Relation(
-        parentColumn = "id",
+        parentColumn = "movieId",
         entityColumn = "movieId"
     )
     val actors: List<ActorEntity>
