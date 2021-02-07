@@ -21,6 +21,8 @@ class MovieListViewModel(private val movieRepository: MovieRepository) : ViewMod
     private val state: MutableLiveData<MovieListState> by lazy {
         MutableLiveData<MovieListState>().also {
             loadMoviesList()
+
+            setPeriodicMovieLoadingWork()
         }
     }
 
@@ -28,6 +30,12 @@ class MovieListViewModel(private val movieRepository: MovieRepository) : ViewMod
 
     init {
         state.postValue(MovieListState.Loading)
+    }
+
+    private fun setPeriodicMovieLoadingWork() {
+        viewModelScope.launch {
+            movieRepository.setPeriodicMoviesLoadingTask()
+        }
     }
 
     private fun loadMoviesList() {
