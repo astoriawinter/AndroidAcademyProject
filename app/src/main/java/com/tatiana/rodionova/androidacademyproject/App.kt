@@ -1,6 +1,7 @@
 package com.tatiana.rodionova.androidacademyproject
 
 import android.app.Application
+import com.tatiana.rodionova.androidacademyproject.di.networkModule
 import com.tatiana.rodionova.androidacademyproject.di.repositoryModule
 import com.tatiana.rodionova.androidacademyproject.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -13,7 +14,7 @@ class App : Application() {
 
         startKoin {
             androidContext(this@App)
-            modules(viewModelModule, repositoryModule)
+            modules(viewModelModule, repositoryModule, networkModule)
         }
     }
 }

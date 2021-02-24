@@ -48,6 +48,7 @@ class ActorAdapter : RecyclerView.Adapter<ActorAdapter.ActorViewHolder>() {
         fun bind(item: Actor) {
             Glide.with(itemView.context)
                 .load(item.picture)
+                .fallback(R.drawable.ic_baseline_no_photography_24)
                 .into(picture)
 
             with(name) {

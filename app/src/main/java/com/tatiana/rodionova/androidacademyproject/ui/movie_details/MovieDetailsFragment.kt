@@ -20,13 +20,13 @@ import com.tatiana.rodionova.androidacademyproject.model.Movie
 import com.tatiana.rodionova.androidacademyproject.model.Movie.Companion.calculateRating
 import com.tatiana.rodionova.androidacademyproject.model.Movie.Companion.split
 import com.tatiana.rodionova.androidacademyproject.ui.movie_details.adapter.ActorAdapter
-import com.tatiana.rodionova.androidacademyproject.ui.movies_list.MovieListState
 import com.tatiana.rodionova.androidacademyproject.utils.setGradient
 import com.tatiana.rodionova.androidacademyproject.utils.withArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailsFragment : Fragment(R.layout.fragment_movies_details) {
     private val model: MovieDetailsViewModel by viewModel()
+    private val movieDetailsAdapter = ActorAdapter()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -48,8 +48,18 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movies_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val spanCount = resources.getInteger(R.integer.actorsSpanCount)
+
         view.run {
             val id = arguments?.getLong(MOVIE_ID_ARG) ?: 0
+
+            findViewById<RecyclerView>(R.id.actorsRecyclerView).run {
+                addItemDecoration(ItemDecorator(R.dimen.actor_offset, spanCount))
+                adapter = movieDetailsAdapter
+                layoutManager =
+                    GridLayoutManager(context, spanCount, GridLayoutManager.VERTICAL, false)
+            }
+
             model.getMovieById(id).observe(viewLifecycleOwner, { state ->
                 when (state) {
                     is MovieDetailsState.Loading -> renderUIState(
@@ -57,10 +67,18 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movies_details) {
                         isLoading = true,
                         isError = false
                     )
-                    is MovieDetailsState.Error -> renderUIState(view = view, isLoading = true, isError = true)
+                    is MovieDetailsState.Error -> renderUIState(
+                        view = view,
+                        isLoading = true,
+                        isError = true
+                    )
                     is MovieDetailsState.Success -> {
+                        state.movie?.let { movie ->
+                            initMovieDetail(movie)
+                            movie.actors.let { actors -> movieDetailsAdapter.list = actors }
+                        }
+
                         renderUIState(view = view, isLoading = false, isError = false)
-                        state.movie?.let { initMovieDetail(it) }
                     }
                 }
             })
@@ -82,7 +100,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movies_details) {
         val error = findViewById<TextView>(R.id.error)
 
         error.isVisible = isError && !isLoading
-        root.isVisible = !isLoading || !isError
+        root.isVisible = !isLoading && !isError
         loading.isVisible = isLoading && !isError
     }
 
@@ -96,14 +114,6 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movies_details) {
         val movieGenres = findViewById<TextView>(R.id.movieGenres)
         val ratingBar = findViewById<RatingBar>(R.id.ratingBar)
         val minimalAge = findViewById<TextView>(R.id.minimalAge)
-
-        val spanCount = resources.getInteger(R.integer.actorsSpanCount)
-
-        findViewById<RecyclerView>(R.id.actorsRecyclerView).run {
-            addItemDecoration(ItemDecorator(R.dimen.actor_offset, spanCount))
-            adapter = ActorAdapter().apply { list = movie.actors }
-            layoutManager = GridLayoutManager(context, spanCount, GridLayoutManager.VERTICAL, false)
-        }
 
         Glide.with(context)
             .load(movie.backdrop)
