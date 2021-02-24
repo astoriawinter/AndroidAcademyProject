@@ -30,7 +30,7 @@ fun Genre.toEntity(movieId: Long): GenreEntity =
     GenreEntity(id, movieId, name)
 
 fun GenreEntity.toGenre(): Genre =
-    Genre(id, name)
+    Genre(genreId, name)
 
 fun Actor.toEntity(movieId: Long): ActorEntity =
     ActorEntity(id, movieId, name, picture)
@@ -43,7 +43,7 @@ fun List<MovieWithGenre>.toMovie(): List<Movie> =
 
 fun MovieWithGenre.toMovie() =
     Movie(
-        movie.id,
+        movie.movieId,
         movie.title,
         movie.overview,
         movie.poster,
@@ -57,7 +57,7 @@ fun MovieWithGenre.toMovie() =
 
 fun MovieWithGenreAndActor.toMovie() =
     Movie(
-        movie.id,
+        movie.movieId,
         movie.title,
         movie.overview,
         null,

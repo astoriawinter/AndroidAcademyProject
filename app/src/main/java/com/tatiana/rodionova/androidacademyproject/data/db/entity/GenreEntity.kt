@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 class GenreEntity(
     @PrimaryKey
-    val id: Long,
+    val genreId: Long,
     val movieId: Long,
     val name: String
 )

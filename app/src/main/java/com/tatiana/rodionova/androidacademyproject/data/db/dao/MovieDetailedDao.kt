@@ -7,16 +7,13 @@ import com.tatiana.rodionova.androidacademyproject.data.db.entity.MovieWithGenre
 @Dao
 interface MovieDetailedDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovieDetails(movie: MovieDetailedEntity)
 
-    @Update
-    suspend fun updateMovieDetails(movie: MovieDetailedEntity)
-
-    @Query("SELECT COUNT(*) from moviedetailedentity WHERE id = :id AND backdrop IS NOT NULL")
+    @Query("SELECT COUNT(*) from moviedetailedentity WHERE movieId = :id AND backdrop IS NOT NULL")
     suspend fun getNumberOfRecords(id: Long): Long
 
     @Transaction
-    @Query("SELECT * from moviedetailedentity WHERE id = :id")
+    @Query("SELECT * from moviedetailedentity WHERE movieId = :id")
     suspend fun getMovieDetailed(id: Long): MovieWithGenreAndActor
 }
