@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class JsonGenre(val id: Int, val name: String)
+class JsonGenre(val id: Long, val name: String)
 
 @Serializable
 data class Image(
@@ -52,7 +52,7 @@ data class Credits(
 data class Cast(
     val adult: Boolean,
     val gender: Int,
-    val id: Int,
+    val id: Long,
     val known_for_department: String,
     val name: String,
     val original_name: String,

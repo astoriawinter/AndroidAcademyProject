@@ -4,5 +4,5 @@ import com.tatiana.rodionova.androidacademyproject.data.repository.MovieReposito
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single { MovieRepository(get(), get()) }
+    single { MovieRepository(get(), get(), get(), get(), get()) }
 }

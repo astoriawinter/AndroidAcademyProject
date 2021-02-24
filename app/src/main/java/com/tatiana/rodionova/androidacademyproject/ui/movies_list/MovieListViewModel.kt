@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tatiana.rodionova.androidacademyproject.data.repository.MovieRepository
 import com.tatiana.rodionova.androidacademyproject.model.Movie
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -32,8 +33,9 @@ class MovieListViewModel(private val movieRepository: MovieRepository) : ViewMod
     private fun loadMoviesList() {
         viewModelScope.launch {
             try {
-                val list = withContext(coroutineContext) { movieRepository.loadPopularMovies() }
-                state.postValue(MovieListState.Success(movie = list))
+                withContext(coroutineContext) { movieRepository.loadPopularMovies() }.collect { movieList ->
+                    state.postValue(MovieListState.Success(movie = movieList))
+                }
             } catch (e: Exception) {
                 state.postValue(MovieListState.Error)
             }
